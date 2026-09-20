@@ -1,4 +1,5 @@
 #include <string>
+#include <string_view>
 #include <vector>
 
 #ifdef _WIN32
@@ -103,6 +104,59 @@ namespace nitro_utils
         WideCharToMultiByte(CP_UTF8, 0, utf16_str.c_str(), str.length(), &utf8_str[0], utf8_size, nullptr, nullptr);
 
         return utf8_str;
+    }
+
+    std::wstring utf8_to_wide(std::string_view str)
+    {
+        if (str.empty())
+        {
+            return {};
+        }
+
+        int size = MultiByteToWideChar(CP_UTF8, 0, str.data(), static_cast<int>(str.size()), nullptr, 0);
+
+        if (size <= 0)
+        {
+            return {};
+        }
+
+        std::wstring wide(size, L'\0');
+        MultiByteToWideChar(CP_UTF8, 0, str.data(), static_cast<int>(str.size()), wide.data(), size);
+
+        return wide;
+    }
+
+    std::string wide_to_utf8(std::wstring_view str)
+    {
+        if (str.empty())
+        {
+            return {};
+        }
+
+        int size = WideCharToMultiByte(CP_UTF8, 0, str.data(), static_cast<int>(str.size()), nullptr, 0, nullptr, nullptr);
+
+        if (size <= 0)
+        {
+            return {};
+        }
+
+        std::string utf8(size, '\0');
+        WideCharToMultiByte(CP_UTF8, 0, str.data(), static_cast<int>(str.size()), utf8.data(), size, nullptr, nullptr);
+
+        return utf8;
+    }
+
+    void to_lower(std::wstring& str)
+    {
+        CharLowerBuffW(str.data(), static_cast<DWORD>(str.size()));
+    }
+
+    std::wstring to_lower_copy(std::wstring_view str)
+    {
+        std::wstring result(str);
+        to_lower(result);
+
+        return result;
     }
 #endif
 }
