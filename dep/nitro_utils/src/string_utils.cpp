@@ -4,6 +4,8 @@
 
 #ifdef _WIN32
 #include <Windows.h>
+#else
+#include <cwctype>
 #endif
 
 namespace nitro_utils
@@ -149,6 +151,101 @@ namespace nitro_utils
     void to_lower(std::wstring& str)
     {
         CharLowerBuffW(str.data(), static_cast<DWORD>(str.size()));
+    }
+
+    std::wstring to_lower_copy(std::wstring_view str)
+    {
+        std::wstring result(str);
+        to_lower(result);
+
+        return result;
+    }
+#else
+    // Windows' wchar_t is UTF-16, Linux's is usually UTF-32; decoding straight
+    // to/from Unicode code points (rather than UTF-16 code units) works either
+    // way for anything in the Basic Multilingual Plane, which covers this
+    // client's UI text (Latin, Cyrillic, etc. - no emoji/rare-script labels).
+    std::wstring utf8_to_wide(std::string_view str)
+    {
+        std::wstring result;
+        result.reserve(str.size());
+
+        size_t i = 0;
+        while (i < str.size())
+        {
+            auto c = static_cast<unsigned char>(str[i]);
+            char32_t codepoint;
+            int extra;
+
+            if ((c & 0x80) == 0x00) { codepoint = c; extra = 0; }
+            else if ((c & 0xE0) == 0xC0) { codepoint = c & 0x1F; extra = 1; }
+            else if ((c & 0xF0) == 0xE0) { codepoint = c & 0x0F; extra = 2; }
+            else if ((c & 0xF8) == 0xF0) { codepoint = c & 0x07; extra = 3; }
+            else { ++i; continue; } // invalid leading byte, skip it
+
+            ++i;
+            bool valid = true;
+            for (int k = 0; k < extra; ++k)
+            {
+                if (i >= str.size() || (static_cast<unsigned char>(str[i]) & 0xC0) != 0x80)
+                {
+                    valid = false;
+                    break;
+                }
+                codepoint = (codepoint << 6) | (static_cast<unsigned char>(str[i]) & 0x3F);
+                ++i;
+            }
+
+            if (valid)
+                result.push_back(static_cast<wchar_t>(codepoint));
+        }
+
+        return result;
+    }
+
+    std::string wide_to_utf8(std::wstring_view str)
+    {
+        std::string result;
+
+        for (wchar_t wc : str)
+        {
+            auto codepoint = static_cast<char32_t>(wc);
+
+            if (codepoint <= 0x7F)
+            {
+                result.push_back(static_cast<char>(codepoint));
+            }
+            else if (codepoint <= 0x7FF)
+            {
+                result.push_back(static_cast<char>(0xC0 | (codepoint >> 6)));
+                result.push_back(static_cast<char>(0x80 | (codepoint & 0x3F)));
+            }
+            else if (codepoint <= 0xFFFF)
+            {
+                result.push_back(static_cast<char>(0xE0 | (codepoint >> 12)));
+                result.push_back(static_cast<char>(0x80 | ((codepoint >> 6) & 0x3F)));
+                result.push_back(static_cast<char>(0x80 | (codepoint & 0x3F)));
+            }
+            else
+            {
+                result.push_back(static_cast<char>(0xF0 | (codepoint >> 18)));
+                result.push_back(static_cast<char>(0x80 | ((codepoint >> 12) & 0x3F)));
+                result.push_back(static_cast<char>(0x80 | ((codepoint >> 6) & 0x3F)));
+                result.push_back(static_cast<char>(0x80 | (codepoint & 0x3F)));
+            }
+        }
+
+        return result;
+    }
+
+    // Unlike Windows' CharLowerBuffW, towlower only case-folds non-ASCII
+    // scripts (Cyrillic, etc.) if the process locale says how - which it
+    // won't unless something calls setlocale(LC_CTYPE, "") first. ASCII
+    // still lowercases correctly regardless.
+    void to_lower(std::wstring& str)
+    {
+        for (wchar_t& wc : str)
+            wc = static_cast<wchar_t>(std::towlower(static_cast<wint_t>(wc)));
     }
 
     std::wstring to_lower_copy(std::wstring_view str)
