@@ -6,6 +6,7 @@
 #include <Windows.h>
 #else
 #include <cwctype>
+#include <type_traits>
 #endif
 
 namespace nitro_utils
@@ -239,13 +240,30 @@ namespace nitro_utils
     }
 
     // Unlike Windows' CharLowerBuffW, towlower only case-folds non-ASCII
-    // scripts (Cyrillic, etc.) if the process locale says how - which it
-    // won't unless something calls setlocale(LC_CTYPE, "") first. ASCII
-    // still lowercases correctly regardless.
+    // scripts if the process locale says how - which it won't unless
+    // something calls setlocale(LC_CTYPE, "") first, and even then it's not
+    // guaranteed across systems. This client's UI text is realistically
+    // Latin-1 Supplement (accented French/German/Spanish/etc. names) and
+    // Cyrillic (Russian/Ukrainian/etc.), so those two ranges are handled
+    // directly with their known, fixed offsets; towlower is still the
+    // fallback for anything else (ASCII, and whatever the locale allows).
     void to_lower(std::wstring& str)
     {
         for (wchar_t& wc : str)
-            wc = static_cast<wchar_t>(std::towlower(static_cast<wint_t>(wc)));
+        {
+            auto c = static_cast<char32_t>(static_cast<std::make_unsigned_t<wchar_t>>(wc));
+
+            if ((c >= 0xC0 && c <= 0xD6) || (c >= 0xD8 && c <= 0xDE))
+                c += 0x20; // Latin-1 Supplement: À-Ö, Ø-Þ
+            else if (c >= 0x0400 && c <= 0x040F)
+                c += 0x50; // Cyrillic: Ѐ-Џ
+            else if (c >= 0x0410 && c <= 0x042F)
+                c += 0x20; // Cyrillic: А-Я
+            else
+                c = static_cast<char32_t>(std::towlower(static_cast<wint_t>(wc)));
+
+            wc = static_cast<wchar_t>(c);
+        }
     }
 
     std::wstring to_lower_copy(std::wstring_view str)
