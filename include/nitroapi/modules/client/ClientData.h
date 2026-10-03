@@ -150,7 +150,7 @@ namespace nitroapi
         // int MsgFunc_TeamScore(const char* name, int size, void* data)
         NitroFunction<int, const char*, int, void*>                UserMsg_TeamScore;
 
-        // the viewport's scoreboard, shown while +showscores is held and at intermission; Linux only so far
+        // the viewport's scoreboard, shown while +showscores is held and at intermission
         // void TeamFortressViewport::ShowScoreBoard()
         NitroFunctionVoid<void*>                                   TeamFortressViewport__ShowScoreBoard;
         // void TeamFortressViewport::HideScoreBoard()
@@ -159,7 +159,7 @@ namespace nitroapi
         NitroFunctionVoid<>                                        IN_ScoreDown;
         NitroFunctionVoid<>                                        IN_ScoreUp;
 
-        // the viewport's own windows by number (5 is the MOTD); Linux only so far
+        // the viewport's own windows by number (5 is the MOTD)
         // void TeamFortressViewport::DisplayVGUIMenu(int menu)
         NitroFunctionVoid<void*, int>                              TeamFortressViewport__DisplayVGUIMenu;
         // bool TeamFortressViewport::IsVGUIMenuActive(int menu)

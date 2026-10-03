@@ -62,7 +62,17 @@ namespace nitroapi
         { StaticHookId::UserMsg_BombPickup,         SearchConfig(0x4E000) },
         { StaticHookId::UserMsg_HostagePos,         SearchConfig(0x4E090) },
         { StaticHookId::UserMsg_HostageK,           SearchConfig(0x4E0C0) },
-        { StaticHookId::UserMsg_ResetHUD,           SearchConfig(0x4DF80) }
+        { StaticHookId::UserMsg_ResetHUD,           SearchConfig(0x4DF80) },
+        // found by the strings they're registered with and the viewport's vtable (RTTI), checked against client.so
+        { StaticHookId::UserMsg_TeamScore,          SearchConfig(0x4E650) },
+        { StaticHookId::IN_ScoreDown,               SearchConfig(0x58760) },
+        { StaticHookId::IN_ScoreUp,                 SearchConfig(0x58780) },
+        { StaticHookId::TeamFortressViewport__ShowScoreBoard, SearchConfig(0xA24B0) },
+        { StaticHookId::TeamFortressViewport__HideScoreBoard, SearchConfig(0xA2520) },
+        { StaticHookId::TeamFortressViewport__DisplayVGUIMenu, SearchConfig(0xA2880) },
+        { StaticHookId::TeamFortressViewport__IsVGUIMenuActive, SearchConfig(0xA2B20) },
+        { StaticHookId::TeamFortressViewport__HideVGUIMenu, SearchConfig(0xA2BE0) },
+        { StaticHookId::TeamFortressViewport__HideBackGround, SearchConfig(0x28160) }
     };
 
     const std::unordered_map<std::string, SearchConfig> ClientAddressProvider8684Windows::addresses_str_

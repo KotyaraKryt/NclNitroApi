@@ -93,12 +93,22 @@ namespace nitroapi
         RegisterFuncCdecl<StaticHookId::HUD_DirectorMessage>(&client_data_->HUD_DirectorMessage);
         RegisterFuncCdecl<StaticHookId::HUD_GetStudioModelInterface>(&client_data_->HUD_GetStudioModelInterface);
 
+        RegisterFuncCdecl<StaticHookId::UserMsg_TeamScore>(&client_data_->UserMsg_TeamScore);
+        RegisterFuncCdecl<StaticHookId::IN_ScoreDown>(&client_data_->IN_ScoreDown);
+        RegisterFuncCdecl<StaticHookId::IN_ScoreUp>(&client_data_->IN_ScoreUp);
+
         if (IsWindows()) {
             RegisterFuncThiscall<StaticHookId::CHudAmmo__DrawCrosshair>(&client_data_->CHudAmmo__DrawCrosshair);
             RegisterFuncThiscall<StaticHookId::CHudHealth__Draw>(&client_data_->CHudHealth__Draw);
             RegisterFuncThiscall<StaticHookId::CHudHealth__DrawRadar>(&client_data_->CHudHealth__DrawRadar);
             RegisterFuncThiscall<StaticHookId::CHudHealth__GetAllPlayersInfo>(&client_data_->CHudHealth__GetAllPlayersInfo);
             RegisterFuncThiscall<StaticHookId::CHudDeathNotice__Draw>(&client_data_->CHudDeathNotice__Draw);
+            RegisterFuncThiscall<StaticHookId::TeamFortressViewport__ShowScoreBoard>(&client_data_->TeamFortressViewport__ShowScoreBoard);
+            RegisterFuncThiscall<StaticHookId::TeamFortressViewport__HideScoreBoard>(&client_data_->TeamFortressViewport__HideScoreBoard);
+            RegisterFuncThiscall<StaticHookId::TeamFortressViewport__DisplayVGUIMenu>(&client_data_->TeamFortressViewport__DisplayVGUIMenu);
+            RegisterFuncThiscall<StaticHookId::TeamFortressViewport__IsVGUIMenuActive>(&client_data_->TeamFortressViewport__IsVGUIMenuActive);
+            RegisterFuncThiscall<StaticHookId::TeamFortressViewport__HideVGUIMenu>(&client_data_->TeamFortressViewport__HideVGUIMenu);
+            RegisterFuncThiscall<StaticHookId::TeamFortressViewport__HideBackGround>(&client_data_->TeamFortressViewport__HideBackGround);
         }
         else {
             RegisterFuncCdecl<StaticHookId::CHudAmmo__DrawCrosshair>(&client_data_->CHudAmmo__DrawCrosshair);
@@ -106,13 +116,8 @@ namespace nitroapi
             RegisterFuncCdecl<StaticHookId::CHudHealth__DrawRadar>(&client_data_->CHudHealth__DrawRadar);
             RegisterFuncCdecl<StaticHookId::CHudHealth__GetAllPlayersInfo>(&client_data_->CHudHealth__GetAllPlayersInfo);
             RegisterFuncCdecl<StaticHookId::CHudDeathNotice__Draw>(&client_data_->CHudDeathNotice__Draw);
-
-            // client.dll's addresses for these aren't known yet
-            RegisterFuncCdecl<StaticHookId::UserMsg_TeamScore>(&client_data_->UserMsg_TeamScore);
             RegisterFuncCdecl<StaticHookId::TeamFortressViewport__ShowScoreBoard>(&client_data_->TeamFortressViewport__ShowScoreBoard);
             RegisterFuncCdecl<StaticHookId::TeamFortressViewport__HideScoreBoard>(&client_data_->TeamFortressViewport__HideScoreBoard);
-            RegisterFuncCdecl<StaticHookId::IN_ScoreDown>(&client_data_->IN_ScoreDown);
-            RegisterFuncCdecl<StaticHookId::IN_ScoreUp>(&client_data_->IN_ScoreUp);
             RegisterFuncCdecl<StaticHookId::TeamFortressViewport__DisplayVGUIMenu>(&client_data_->TeamFortressViewport__DisplayVGUIMenu);
             RegisterFuncCdecl<StaticHookId::TeamFortressViewport__IsVGUIMenuActive>(&client_data_->TeamFortressViewport__IsVGUIMenuActive);
             RegisterFuncCdecl<StaticHookId::TeamFortressViewport__HideVGUIMenu>(&client_data_->TeamFortressViewport__HideVGUIMenu);
