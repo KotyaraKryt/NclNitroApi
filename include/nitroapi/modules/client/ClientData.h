@@ -147,6 +147,17 @@ namespace nitroapi
         NitroFunction<int, const char*, int, void*>                UserMsg_HostageK;
         // int MsgFunc_ResetHUD(const char* name, int size, void* data)
         NitroFunction<int, const char*, int, void*>                UserMsg_ResetHUD;
+        // int MsgFunc_TeamScore(const char* name, int size, void* data)
+        NitroFunction<int, const char*, int, void*>                UserMsg_TeamScore;
+
+        // the viewport's scoreboard, shown while +showscores is held and at intermission; Linux only so far
+        // void TeamFortressViewport::ShowScoreBoard()
+        NitroFunctionVoid<void*>                                   TeamFortressViewport__ShowScoreBoard;
+        // void TeamFortressViewport::HideScoreBoard()
+        NitroFunctionVoid<void*>                                   TeamFortressViewport__HideScoreBoard;
+        // +showscores and -showscores, the scoreboard key itself
+        NitroFunctionVoid<>                                        IN_ScoreDown;
+        NitroFunctionVoid<>                                        IN_ScoreUp;
 
         cl_enginefuncs_s* gEngfuncs                                = nullptr;
     };

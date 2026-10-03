@@ -106,6 +106,13 @@ namespace nitroapi
             RegisterFuncCdecl<StaticHookId::CHudHealth__DrawRadar>(&client_data_->CHudHealth__DrawRadar);
             RegisterFuncCdecl<StaticHookId::CHudHealth__GetAllPlayersInfo>(&client_data_->CHudHealth__GetAllPlayersInfo);
             RegisterFuncCdecl<StaticHookId::CHudDeathNotice__Draw>(&client_data_->CHudDeathNotice__Draw);
+
+            // client.dll's addresses for these aren't known yet
+            RegisterFuncCdecl<StaticHookId::UserMsg_TeamScore>(&client_data_->UserMsg_TeamScore);
+            RegisterFuncCdecl<StaticHookId::TeamFortressViewport__ShowScoreBoard>(&client_data_->TeamFortressViewport__ShowScoreBoard);
+            RegisterFuncCdecl<StaticHookId::TeamFortressViewport__HideScoreBoard>(&client_data_->TeamFortressViewport__HideScoreBoard);
+            RegisterFuncCdecl<StaticHookId::IN_ScoreDown>(&client_data_->IN_ScoreDown);
+            RegisterFuncCdecl<StaticHookId::IN_ScoreUp>(&client_data_->IN_ScoreUp);
         }
     }
 

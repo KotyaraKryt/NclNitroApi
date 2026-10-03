@@ -337,6 +337,11 @@ namespace nitroapi
         UserMsg_HostagePos,
         UserMsg_HostageK,
         UserMsg_ResetHUD,
+        UserMsg_TeamScore,
+        TeamFortressViewport__ShowScoreBoard,
+        TeamFortressViewport__HideScoreBoard,
+        IN_ScoreDown,
+        IN_ScoreUp,
 
         // SDL2.dll
         SDL_DestroyWindow = 1500,

@@ -62,7 +62,12 @@ namespace nitroapi
         { StaticHookId::UserMsg_BombPickup,         SearchConfig("_Z20__MsgFunc_BombPickupPKciPv", SearchType::ExportFunc) },
         { StaticHookId::UserMsg_HostagePos,         SearchConfig("_Z20__MsgFunc_HostagePosPKciPv", SearchType::ExportFunc) },
         { StaticHookId::UserMsg_HostageK,           SearchConfig("_Z18__MsgFunc_HostageKPKciPv", SearchType::ExportFunc) },
-        { StaticHookId::UserMsg_ResetHUD,           SearchConfig("_Z18__MsgFunc_ResetHUDPKciPv", SearchType::ExportFunc) }
+        { StaticHookId::UserMsg_ResetHUD,           SearchConfig("_Z18__MsgFunc_ResetHUDPKciPv", SearchType::ExportFunc) },
+        { StaticHookId::UserMsg_TeamScore,          SearchConfig("_Z19__MsgFunc_TeamScorePKciPv", SearchType::ExportFunc) },
+        { StaticHookId::TeamFortressViewport__ShowScoreBoard, SearchConfig("_ZN20TeamFortressViewport14ShowScoreBoardEv", SearchType::ExportFunc) },
+        { StaticHookId::TeamFortressViewport__HideScoreBoard, SearchConfig("_ZN20TeamFortressViewport14HideScoreBoardEv", SearchType::ExportFunc) },
+        { StaticHookId::IN_ScoreDown,               SearchConfig("_Z12IN_ScoreDownv", SearchType::ExportFunc) },
+        { StaticHookId::IN_ScoreUp,                 SearchConfig("_Z10IN_ScoreUpv", SearchType::ExportFunc) }
 
     };
 
