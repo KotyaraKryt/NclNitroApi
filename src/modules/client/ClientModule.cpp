@@ -113,6 +113,10 @@ namespace nitroapi
             RegisterFuncCdecl<StaticHookId::TeamFortressViewport__HideScoreBoard>(&client_data_->TeamFortressViewport__HideScoreBoard);
             RegisterFuncCdecl<StaticHookId::IN_ScoreDown>(&client_data_->IN_ScoreDown);
             RegisterFuncCdecl<StaticHookId::IN_ScoreUp>(&client_data_->IN_ScoreUp);
+            RegisterFuncCdecl<StaticHookId::TeamFortressViewport__DisplayVGUIMenu>(&client_data_->TeamFortressViewport__DisplayVGUIMenu);
+            RegisterFuncCdecl<StaticHookId::TeamFortressViewport__IsVGUIMenuActive>(&client_data_->TeamFortressViewport__IsVGUIMenuActive);
+            RegisterFuncCdecl<StaticHookId::TeamFortressViewport__HideVGUIMenu>(&client_data_->TeamFortressViewport__HideVGUIMenu);
+            RegisterFuncCdecl<StaticHookId::TeamFortressViewport__HideBackGround>(&client_data_->TeamFortressViewport__HideBackGround);
         }
     }
 

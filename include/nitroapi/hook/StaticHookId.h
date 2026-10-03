@@ -342,6 +342,10 @@ namespace nitroapi
         TeamFortressViewport__HideScoreBoard,
         IN_ScoreDown,
         IN_ScoreUp,
+        TeamFortressViewport__DisplayVGUIMenu,
+        TeamFortressViewport__IsVGUIMenuActive,
+        TeamFortressViewport__HideVGUIMenu,
+        TeamFortressViewport__HideBackGround,
 
         // SDL2.dll
         SDL_DestroyWindow = 1500,

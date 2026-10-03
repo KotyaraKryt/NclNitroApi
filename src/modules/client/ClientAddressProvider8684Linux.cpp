@@ -67,7 +67,11 @@ namespace nitroapi
         { StaticHookId::TeamFortressViewport__ShowScoreBoard, SearchConfig("_ZN20TeamFortressViewport14ShowScoreBoardEv", SearchType::ExportFunc) },
         { StaticHookId::TeamFortressViewport__HideScoreBoard, SearchConfig("_ZN20TeamFortressViewport14HideScoreBoardEv", SearchType::ExportFunc) },
         { StaticHookId::IN_ScoreDown,               SearchConfig("_Z12IN_ScoreDownv", SearchType::ExportFunc) },
-        { StaticHookId::IN_ScoreUp,                 SearchConfig("_Z10IN_ScoreUpv", SearchType::ExportFunc) }
+        { StaticHookId::IN_ScoreUp,                 SearchConfig("_Z10IN_ScoreUpv", SearchType::ExportFunc) },
+        { StaticHookId::TeamFortressViewport__DisplayVGUIMenu, SearchConfig("_ZN20TeamFortressViewport15DisplayVGUIMenuEi", SearchType::ExportFunc) },
+        { StaticHookId::TeamFortressViewport__IsVGUIMenuActive, SearchConfig("_ZN20TeamFortressViewport16IsVGUIMenuActiveEi", SearchType::ExportFunc) },
+        { StaticHookId::TeamFortressViewport__HideVGUIMenu, SearchConfig("_ZN20TeamFortressViewport12HideVGUIMenuEi", SearchType::ExportFunc) },
+        { StaticHookId::TeamFortressViewport__HideBackGround, SearchConfig("_ZN20TeamFortressViewport14HideBackGroundEv", SearchType::ExportFunc) }
 
     };
 

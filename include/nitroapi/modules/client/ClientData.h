@@ -159,6 +159,17 @@ namespace nitroapi
         NitroFunctionVoid<>                                        IN_ScoreDown;
         NitroFunctionVoid<>                                        IN_ScoreUp;
 
+        // the viewport's own windows by number (5 is the MOTD); Linux only so far
+        // void TeamFortressViewport::DisplayVGUIMenu(int menu)
+        NitroFunctionVoid<void*, int>                              TeamFortressViewport__DisplayVGUIMenu;
+        // bool TeamFortressViewport::IsVGUIMenuActive(int menu)
+        NitroFunction<bool, void*, int>                            TeamFortressViewport__IsVGUIMenuActive;
+        // void TeamFortressViewport::HideVGUIMenu(int menu)
+        NitroFunctionVoid<void*, int>                              TeamFortressViewport__HideVGUIMenu;
+        // the dark panel the viewport's windows sit on
+        // void TeamFortressViewport::HideBackGround()
+        NitroFunctionVoid<void*>                                   TeamFortressViewport__HideBackGround;
+
         cl_enginefuncs_s* gEngfuncs                                = nullptr;
     };
 }
